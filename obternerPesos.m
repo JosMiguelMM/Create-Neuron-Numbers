@@ -1,10 +1,13 @@
 % funcion para llenar una matriz
-function pesos=obternerPesos(filas, columna)
-    pesos=zeros(filas, columna)
-    for i = 1:columna
-        for j = 1:filas
-            peso = input(['Ingrese el peso en la fila: ', num2str(i), ' columna: ', num2str(j) ])
-            pesos(j, i)=peso
+function matricesPesos=obternerPesos(capas, tamaCapas)
+    matricesPesos=cell(1,capas);
+    for i=2:capas
+        matrizPesos=zeros(tamaCapas(i), tamaCapas(i-1))
+        for j = 1:tamaCapas(i-1)
+            for k = 1:tamaCapas(i)
+                matrizPesos(k,j) = input(['Ingresa los datos para la capa ',num2str(i),' ingrese el peso en la fila: ', num2str(k), ' columna: ', num2str(j) ])
+            end
         end
+        matricesPesos{i-1}=matrizPesos
     end
 end
