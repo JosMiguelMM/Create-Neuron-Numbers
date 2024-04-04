@@ -15,13 +15,31 @@ vector=zeros(1, datos);
 matrizPesos=cell(1, capas-1);
 
 tamaCapas=[];
+vactor=[]
 for i=1:capas
     tamaCapas(i) = input(['Ingrese el tamaño de la capa: ', num2str(i), ' : ']);  
 end
 
-matrizPesos=obternerPesos(capas,tamaCapas)
 
-vector = insertVector(datos)
+disp("Digite la opcion ")
+disp("1-> Quiere usar la funcion comportamiento de crecimiento de una especie ")
+disp("2-> Quiere insertar los datos manuelamente")
+
+option=input("Ingrese la opcion escogida")
+switch option
+    case 1
+        vector=insertVector(tamaCapas(1))
+        vector=ecuCrecimiPobla(vector)
+        matrizPesos=obternerPesos(capas,tamaCapas)
+    case 2
+        vector = insertVector(datos)
+        matrizPesos=obternerPesos(capas,tamaCapas)
+end
+
+
+
+
+te =insertVector(capas-1)
 resultado=[];
 matrizPeso=[];
 for i=1:(length(matrizPesos)-1)
@@ -33,9 +51,9 @@ for i=1:(length(matrizPesos)-1)
         disp(length(vector))
 
         if size(matrizPeso,1)==length(vector)
-            resultado=matrizPeso*vector;
+            resultado=matrizPeso*vector+te(i)
         else
-            resultado=matrizPeso*vector';
+            resultado=matrizPeso*vector'+te(i)
         end
     else
         disp("Tamaños")
@@ -43,11 +61,12 @@ for i=1:(length(matrizPesos)-1)
 
         disp(size(resultado,2))
         
-        resultado=matrizPeso*resultado
+        resultado=matrizPeso*resultado+te(i)
     end
 end
 
-disp(resultado)
+
+
 
 
 
